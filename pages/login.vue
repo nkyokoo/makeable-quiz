@@ -1,0 +1,47 @@
+<template>
+  <v-card>
+    <v-card-title>
+      <h1>Login</h1>
+    </v-card-title>
+    <v-card-text>
+      <v-form>
+        <v-text-field
+          v-model="email"
+          label="Email"
+          outlined
+          type="email"
+          required
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          label="Password"
+          outlined
+          type="password"
+          required
+        ></v-text-field>
+        <v-btn @click="login">Login</v-btn>
+      </v-form>
+    </v-card-text>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "Login",
+  middleware: "Guest",
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    login() {
+      this.$store.dispatch("login", {
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>
