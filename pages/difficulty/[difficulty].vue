@@ -112,14 +112,12 @@ export default {
       return this.shuffleAnswers(tempAnswers);
     },
     shuffleAnswers(tempAnswers: string[]) {
-      console.log(tempAnswers);
       for (let i = tempAnswers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * i);
         const temp = tempAnswers[i];
         tempAnswers[i] = tempAnswers[j];
         tempAnswers[j] = temp;
       }
-      console.log(tempAnswers);
       return tempAnswers;
     },
     checkAnswer(input: any, ref: string) {
@@ -134,7 +132,6 @@ export default {
       }
     },
     async getData() {
-      this.shuffledQuestions = [];
       if (this.questions.length == 0 || this.difficulty != this.$route.params.difficulty) {
         const { data } = await useFetch(
           `https://opentdb.com/api.php?amount=10&category=23&difficulty=${this.$route.params.difficulty}&type=multiple&token=${this.sessionToken}`
@@ -160,6 +157,9 @@ export default {
   },
   async mounted() {
     await this.getData();
+  },
+  beforeUnmount() {
+    this.shuffledQuestions = [];
   },
   watch: {
     '$route.params': {

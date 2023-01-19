@@ -1,20 +1,10 @@
 import { Question } from "~/interfaces/question";
+import { useStorage } from "@vueuse/core";
 
 export const useQuizStore = defineStore("quiz", () => {
-  const questions = ref<Question[]>([]);
-  const difficulty = ref<string>("");
-  const score = ref<number>(0);
-
-  if (localStorage.getItem("questions")) {
-    questions.value = JSON.parse(
-      window.localStorage.getItem("questions") ?? ""
-    );
-  }
-  if (localStorage.getItem("category")) {
-    difficulty.value = JSON.parse(
-      window.localStorage.getItem("category") ?? ""
-    );
-  }
+  const questions = ref<Question[]>(typeof window !== "undefined" ? JSON.parse(window.localStorage.getItem("questons") || "[]") : []);
+  const difficulty = ref<string>(typeof window !== "undefined" ? window.localStorage.getItem("difficulty") || "" : "");
+  const score = ref<number>(typeof window !== "undefined" ? parseInt(window.localStorage.getItem("score") || "0") : 0);
 
   const fetchQuestions = computed((): Question[] => {
     return questions.value;
@@ -39,10 +29,7 @@ export const useQuizStore = defineStore("quiz", () => {
   watch(
     questions,
     (storageQuestions) => {
-      window.localStorage.setItem(
-        "questons",
-        JSON.stringify(storageQuestions)
-      );
+      window.localStorage.setItem("questons", JSON.stringify(storageQuestions));
     },
     { deep: true }
   );
