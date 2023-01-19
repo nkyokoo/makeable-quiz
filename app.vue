@@ -1,17 +1,16 @@
 <template>
   <v-app :theme="theme">
-    <v-app-bar app>
-      <v-btn v-for="i in menuItems" text :to="i.to">
+    <v-app-bar app v-if="isAuthenticated">
+      <v-btn v-for="i in menuItems" :to="i.to">
         {{ i.title }}
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn
-        :prepend-icon="
-          theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'
-        "
-        @click="onClick"
-        >Toggle Theme</v-btn
-      >
+      <v-btn @click="logOut">
+        Log out
+      </v-btn>
+      <v-btn :prepend-icon="
+        theme === 'light' ? 'mdi-weather-sunny' : 'mdi-weather-night'
+      " @click="changeTheme">Toggle Theme</v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -20,7 +19,13 @@
     </v-main>
   </v-app>
 </template>
+
 <script>
+import { useAuthStore } from './stores/AuthStore';
+import { mapState } from "pinia";
+
+
+
 export default {
   name: "App",
   data() {
@@ -47,9 +52,17 @@ export default {
     };
   },
   methods: {
-    onClick() {
+    changeTheme() {
       this.theme = this.theme === "light" ? "dark" : "light";
     },
+    logOut() {
+      const store = useAuthStore();
+      store.logOut();
+      navigateTo("/login");
+    },
+  },
+  computed: {
+    ...mapState(useAuthStore, ['sessionsToken', 'isAuthenticated'])
   },
 };
 </script>

@@ -1,4 +1,4 @@
-export interface question {
+export interface Question {
   category: string;
   type: string;
   difficulty: string;
