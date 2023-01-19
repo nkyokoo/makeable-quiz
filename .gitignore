@@ -138,4 +138,4 @@ database-debug.log
 firebase-debug.log
 pubsub-debug.log
 .output/
-.output/
+functions/
