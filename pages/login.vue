@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col></v-col>
+    <v-col v-if="!$vuetify.display.mobile"></v-col>
     <v-col>
       <v-card>
         <v-card-title style="margin-top: 1rem; margin-bottom: 1rem">
@@ -8,28 +8,15 @@
         </v-card-title>
         <v-card-text>
           <v-form>
-            <v-text-field
-              v-model="email"
-              label="Email"
-              :rules="emailRules"
-              filled
-              type="email"
-              required
-            ></v-text-field>
-            <v-text-field
-              v-model="password"
-              label="Password"
-              :rules="passwordRules"
-              filled
-              type="password"
-              required
-            ></v-text-field>
+            <v-text-field v-model="email" label="Email" :rules="emailRules" filled type="email" required></v-text-field>
+            <v-text-field v-model="password" label="Password" :rules="passwordRules" filled type="password"
+              required></v-text-field>
             <v-btn @click="login">Login</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col></v-col>
+    <v-col v-if="!$vuetify.display.mobile"></v-col>
   </v-row>
 </template>
 
