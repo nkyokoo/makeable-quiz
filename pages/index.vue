@@ -1,10 +1,20 @@
 <template>
-  <v-card>
-    <v-card-title style="padding: 1rem">
-      <h1 style="margin:1rem">Heyo! Welcome to my quiz app</h1>
-      <h3 style="margin:1rem">Are you ready for a history quiz? Just select a difficulty in the menubar</h3>
-    </v-card-title>
-  </v-card>
+  <v-row>
+    <v-col>
+      <v-card>
+        <v-card-title style="padding: 1rem">
+          Heyo! Welcome to my quiz app
+        </v-card-title>
+        <v-card-text>
+          Are you ready for a history quiz? Just select a difficulty in the {{ !$vuetify.display.mobile ?  "menubar above" : "drawer" }}!
+          <br />
+          <br />
+          This is a nuxt 3 app, running vue and typescript. It uses the vuetify 3 library. It fetches questions from the
+          opentdb api using the in built <code>useFetch</code> function
+        </v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
 </template>
 
 <script setup lang="ts">
